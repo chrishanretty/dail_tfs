@@ -102,6 +102,9 @@ dat <- dat |>
     mutate(wday = factor(wday, ordered = FALSE),
            month = factor(month, ordered = FALSE))
 
+dat <- dat |>
+    mutate(w8 = nchars / mean(nchars))
+
 m <- bam(Future ~ s(age, bs = "cr", k = 30) + s(cohort, bs = "re") +
              s(date.num, bs = "cr", k = 20) + s(pageid, bs = "re") + 
              s(party_name, bs = "re") +
@@ -109,12 +112,10 @@ m <- bam(Future ~ s(age, bs = "cr", k = 30) + s(cohort, bs = "re") +
              wday + month,
          family = betar(),
          discrete = TRUE,
+         weights = dat$w8,
          nthreads = n_threads,
          data = dat)
 
 saveRDS(m,
         file = here::here("working", "dail_model_all.rds"))
 
-## pdf(file = "~/Desktop/dail.pdf")
-## plot(m, select = 1)
-## dev.off()
