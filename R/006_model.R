@@ -98,6 +98,10 @@ dat <- dat |>
 dat <- dat |>
     mutate(party_name = factor(party_name))
 
+dat <- dat |>
+    mutate(wday = factor(wday, ordered = FALSE),
+           month = factor(month, ordered = FALSE))
+
 m <- bam(Future ~ s(age, bs = "cr", k = 30) + s(cohort, bs = "re") +
              s(date.num, bs = "cr", k = 20) + s(pageid, bs = "re") + 
              s(party_name, bs = "re") +
