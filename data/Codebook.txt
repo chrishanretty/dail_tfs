@@ -1,0 +1,43 @@
+- The dataset contains all speeches in the Irish Parliament (Dail) covering the period 1919-2013. 
+
+- There are 4,443,713 speeches made by 1,178 TDs in this period. 
+
+- In addition the dataset contains the following data:
+
+1. "speechID"    - unique ID for each speech;   
+2. "memberID"    - unique ID for each speaker, member of parliament or TD;   
+3. "partyID"     - party ID;  
+4. "constID"     - constituency ID;   
+5. "title"       - title of the speech in official records;
+6. "date"        - date of the speech;   
+7. "member_name" - name of the member of parliament (TD)
+8. "party_name"  - political party name;
+9. "const_name"  - name of the parliamentary constituency;
+10. "speech"     - text of the speech.    
+
+
+- Note: Speeches contain commas and double and single quotation marks. When generating the flat file, we, therefore, selected tab ("\t") as the delimiter. It seemed safer to remove all tabs from the speeches without changing their content, rather than commas or quotation marks. 
+
+- In R, an easy way to load the data after unzipping is using the “data.table” package:
+
+debates <- fread("Dail_debates_1919-2013.tab", sep="\t", quote="", header=TRUE, showProgress = TRUE, data.table=FALSE, verbose = TRUE)
+
+
+- Additional data on ministerial positions of speakers is contained in “Dail_debates_1937-2011_ministers.tab”. 
+
+- The file has 14 variables:
+
+1. “govt_number”.   -number of the government (running from the 1st government of the Republic)
+2. ”start_day"      -start day in the position
+3. “start_month"    -start month in the position
+4. ”start_year"     -start year in the position
+5. “end_day"        -end day in the position
+6. “end_month"      -end month in the position
+7. ”end_year"       -end year in the position
+8. “position"       -official position
+9. “department"     -government department where position is held
+10. ”name"          -name
+11. “memberName"    -name of the member of parliament (TD) same as in “Dail_debates_1919-2013.tab”
+12. ”memberID"      -unique ID for each speaker, member of parliament or TD, same as in “Dail_debates_1919-2013.tab”
+13. ”start_date"    -start date in the position
+14. ”end_date"      -end date in the position
